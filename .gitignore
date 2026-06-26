@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Xcode build output and user state
+build/
+DerivedData/
+*.xcresult
+*.xcuserstate
+xcuserdata/
+*.xccheckout
+*.xcscmblueprint
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM
+*.dSYM.zip
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Python tooling (icon generator)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editors and local environment
+.idea/
+.vscode/
+.env
+.env.*
+.config/

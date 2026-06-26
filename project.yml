@@ -1,0 +1,71 @@
+name: DarkMatterDetector
+
+options:
+  bundleIdPrefix: com.sid
+  deploymentTarget:
+    macOS: "13.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    CLANG_ENABLE_OBJC_ARC: YES
+    CLANG_ENABLE_OBJC_WEAK: YES
+    MACOSX_DEPLOYMENT_TARGET: "13.0"
+    CODE_SIGNING_ALLOWED: NO
+    CODE_SIGNING_REQUIRED: NO
+
+targets:
+  DarkMatterDetector:
+    type: application
+    platform: macOS
+    sources:
+      - path: DarkMatterDetector
+    settings:
+      base:
+        PRODUCT_NAME: DarkMatterDetector
+        PRODUCT_BUNDLE_IDENTIFIER: com.sid.DarkMatterDetector
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: DarkMatterDetector/Info.plist
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        ENABLE_HARDENED_RUNTIME: NO
+      configs:
+        Debug:
+          GCC_OPTIMIZATION_LEVEL: "0"
+          SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+        Release:
+          GCC_OPTIMIZATION_LEVEL: "s"
+    dependencies:
+      - sdk: AppKit.framework
+      - sdk: SceneKit.framework
+      - sdk: QuartzCore.framework
+
+  DarkMatterDetectorTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: DarkMatterDetectorTests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.sid.DarkMatterDetectorTests
+        GENERATE_INFOPLIST_FILE: YES
+        HEADER_SEARCH_PATHS:
+          - "$(SRCROOT)/DarkMatterDetector"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/DarkMatterDetector.app/Contents/MacOS/DarkMatterDetector"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+    dependencies:
+      - target: DarkMatterDetector
+
+schemes:
+  DarkMatterDetector:
+    build:
+      targets:
+        DarkMatterDetector: all
+        DarkMatterDetectorTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: false
+      targets:
+        - DarkMatterDetectorTests
